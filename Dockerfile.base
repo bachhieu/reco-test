@@ -1,0 +1,29 @@
+
+# Stage 2
+FROM alpine:latest
+
+WORKDIR /app
+
+ENV BIN_DIR=/app/bin
+ENV SCRIPTS_DIR=/app/scripts
+ENV LOG_DIR=/var/log/volio
+
+RUN mkdir -p ${BIN_DIR} \
+    mkdir -p ${SCRIPTS_DIR} \
+    # mkdir -p ${DATA_DIR} \
+    mkdir -p ${LOG_DIR} \
+    && addgroup -S bachhieu \
+    && adduser -S bachhieu -G bachhieu \
+    && chown bachhieu:bachhieu /app \
+    && chown bachhieu:bachhieu ${LOG_DIR}
+
+USER bachhieu
+
+COPY --chown=bachhieu:bachhieu main /app/
+COPY --chown=bachhieu:bachhieu ./docs /app/docs
+# COPY --chown=bachhieu:bachhieu ./scripts ${SCRIPTS_DIR}
+
+# RUN chmod +x ${SCRIPTS_DIR}/startup.sh
+
+# ENTRYPOINT ["/app/scripts/startup.sh
+ENTRYPOINT ["/app/main"]

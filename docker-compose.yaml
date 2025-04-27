@@ -1,17 +1,13 @@
-version: '3.9'
 
 services:
-  redis:
-    image: redis/redis-stack-server:latest
-    ports:
-      - 6379:6379
-
-  postgres:
-    image: postgres:alpine
-    restart: unless-stopped
-    ports:
-      - 5432:5432
+  app:
+    image: bachviethieu/demo
+    container_name: demo
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: test
-      POSTGRES_PASSWORD: postgres
+      - CONTAINER_ROLE=main
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config.json:/app/config.json  # mount file config.json vào trong container
+    working_dir: /app
+    restart: unless-stopped
