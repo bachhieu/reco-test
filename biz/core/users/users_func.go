@@ -24,9 +24,9 @@ var _ core.UsersCallback = &UsersController{}
 
 func (ctrl *UsersController) Get(id string) *models.UserMD {
 	// Try get from cache first
-	if data := ctrl.dao.usersCache.Get(id); data != nil {
-		return data
-	}
+	// if data := ctrl.dao.usersCache.Get(id); data != nil {
+	// 	return data
+	// }
 
 	// Get from dao
 	md := ctrl.dao.usersDAO.Get(id)
@@ -35,11 +35,11 @@ func (ctrl *UsersController) Get(id string) *models.UserMD {
 	}
 
 	// Save to cache
-	go func() {
-		if err := ctrl.dao.usersCache.Save(md); err != nil {
-			v_log.V(1).WithError(err).Errorf("UsersController::Get - Cache Error: %+v", err)
-		}
-	}()
+	// go func() {
+	// 	if err := ctrl.dao.usersCache.Save(md); err != nil {
+	// 		v_log.V(1).WithError(err).Errorf("UsersController::Get - Cache Error: %+v", err)
+	// 	}
+	// }()
 
 	return md
 }

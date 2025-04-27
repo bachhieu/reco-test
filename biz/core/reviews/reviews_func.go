@@ -23,10 +23,10 @@ import (
 var _ core.ReviewsCallback = &ReviewsController{}
 
 func (ctrl *ReviewsController) Get(id string) *models.ReviewMD {
-	// Try get from cache first
-	if data := ctrl.dao.reviewsCache.Get(id); data != nil {
-		return data
-	}
+	// // Try get from cache first
+	// if data := ctrl.dao.reviewsCache.Get(id); data != nil {
+	// 	return data
+	// }
 
 	// Get from dao
 	md := ctrl.dao.reviewsDAO.Get(id)
@@ -34,12 +34,12 @@ func (ctrl *ReviewsController) Get(id string) *models.ReviewMD {
 		return nil
 	}
 
-	// Save to cache
-	go func() {
-		if err := ctrl.dao.reviewsCache.Save(md); err != nil {
-			v_log.V(1).WithError(err).Errorf("ReviewsController::Get - Cache Error: %+v", err)
-		}
-	}()
+	// // Save to cache
+	// go func() {
+	// 	if err := ctrl.dao.reviewsCache.Save(md); err != nil {
+	// 		v_log.V(1).WithError(err).Errorf("ReviewsController::Get - Cache Error: %+v", err)
+	// 	}
+	// }()
 
 	return md
 }

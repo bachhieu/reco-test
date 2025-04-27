@@ -1,7 +1,7 @@
 
 services:
   app:
-    image: bachviethieu/demo
+    image: bachviethieu/hieubv-reco:testing
     container_name: demo
     environment:
       - CONTAINER_ROLE=main

@@ -1,6 +1,6 @@
 # Test
 
-A new project created with fkit make:init command.
+I build app with my tool and my private repo, so you can can't run with command `go run main.go`
 
 ## Getting Started
 

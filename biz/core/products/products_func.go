@@ -24,9 +24,9 @@ var _ core.ProductsCallback = &ProductsController{}
 
 func (ctrl *ProductsController) Get(id string) *models.ProductMD {
 	// Try get from cache first
-	if data := ctrl.dao.productsCache.Get(id); data != nil {
-		return data
-	}
+	// if data := ctrl.dao.productsCache.Get(id); data != nil {
+	// 	return data
+	// }
 
 	// Get from dao
 	md := ctrl.dao.productsDAO.Get(id)
@@ -35,11 +35,11 @@ func (ctrl *ProductsController) Get(id string) *models.ProductMD {
 	}
 
 	// Save to cache
-	go func() {
-		if err := ctrl.dao.productsCache.Save(md); err != nil {
-			v_log.V(1).WithError(err).Errorf("ProductsController::Get - Cache Error: %+v", err)
-		}
-	}()
+	// go func() {
+	// 	if err := ctrl.dao.productsCache.Save(md); err != nil {
+	// 		v_log.V(1).WithError(err).Errorf("ProductsController::Get - Cache Error: %+v", err)
+	// 	}
+	// }()
 
 	return md
 }
