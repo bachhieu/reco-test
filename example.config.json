@@ -1,0 +1,55 @@
+{
+    "env": {
+        "environment": "local",
+        "addr": ":3000",
+        "service_name": "test",
+        "endpoint_prefix": "test",
+        "host_name": ":3000",
+        "proxy": "",
+        "metrics_enabled": true
+    },
+    "encrypt": {
+        "secret_key": "volio@2022@key@test@secret",
+        "init_vector": "secretinitvector"
+    },
+    "log": {
+        "log_file_level": 3,
+        "log_print_level": 3
+    },
+    "tcp": {
+        "addr": ":9099",
+        "server_name": ""
+    },
+    "open_id_jwt": {
+        "app_name": "",
+        "secret_key": "this-is-volio-secret-token-b42ga3",
+        "access_token_ttl": 2592000,
+        "refresh_token_ttl": 2592000
+    },
+    "redis": [
+        {
+            "name": "test-cache",
+            "environment": "development",
+            "addr": "host.docker.internal:6379",
+            "password": "",
+            "active": 100,
+            "idle": 100,
+            "dial_timeout": 30,
+            "read_timeout": 30,
+            "write_timeout": 30,
+            "idle_timeout": 30,
+            "max_retries": 5
+        }
+    ],
+    "postgresql": [
+        {
+            "name": "test-master",
+            "driver": "postgres",
+            "environment": "development",
+            "dsn": "host=host.docker.internal port=5432 user=postgres password=postgres dbname=test sslmode=disable",
+            "active": 100,
+            "idle": 100,
+            "lifetime": 3600
+        }
+    ]
+}

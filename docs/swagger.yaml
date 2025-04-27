@@ -1,0 +1,993 @@
+basePath: /api/v1
+definitions:
+  cate_do.CateResponse:
+    properties:
+      created_by:
+        example: 5oWUyVnW
+        type: string
+      created_time:
+        example: 130109267
+        type: integer
+      description:
+        example: blanditiis rerum illum maiores eveniet.
+        type: string
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      name:
+        example: Andreanne Zieme
+        type: string
+      updated_time:
+        example: 130109267
+        type: integer
+    type: object
+  cate_do.CreateCateReq:
+    properties:
+      description:
+        example: blanditiis rerum illum maiores eveniet.
+        maxLength: 255
+        minLength: 1
+        type: string
+      name:
+        example: Andreanne Zieme
+        maxLength: 255
+        minLength: 1
+        type: string
+    type: object
+  cate_do.UpdateCateReq:
+    properties:
+      created_by:
+        example: 5oWUyVnW
+        maxLength: 255
+        minLength: 1
+        type: string
+      description:
+        example: blanditiis rerum illum maiores eveniet.
+        maxLength: 255
+        minLength: 1
+        type: string
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      name:
+        example: Andreanne Zieme
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - id
+    type: object
+  constant.ProviderUser:
+    enum:
+    - internal
+    - google
+    - facebook
+    type: string
+    x-enum-varnames:
+    - PROVIDER_USER_INTERNAL
+    - PROVIDER_USER_GOOGLE
+    - PROVIDER_USER_FACEBOOK
+  product_do.CreateProductReq:
+    properties:
+      description:
+        example: eaque ad est et impedit.
+        maxLength: 255
+        minLength: 1
+        type: string
+      display:
+        example: false
+        type: boolean
+      name:
+        example: Obie Schroeder
+        maxLength: 255
+        minLength: 1
+        type: string
+      price:
+        example: 858
+        minimum: 0
+        type: number
+      stock_quantity:
+        example: 55
+        maximum: 1000000000
+        minimum: 0
+        type: integer
+    type: object
+  product_do.ProductResponse:
+    properties:
+      created_by:
+        example: "783"
+        type: string
+      created_time:
+        example: 1738684701
+        type: integer
+      description:
+        example: eaque ad est et impedit.
+        type: string
+      display:
+        example: false
+        type: boolean
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      name:
+        example: Obie Schroeder
+        type: string
+      price:
+        example: 858
+        type: number
+      stock_quantity:
+        example: 55
+        type: integer
+      updated_time:
+        example: 1738684701
+        type: integer
+    type: object
+  product_do.UpdateProductReq:
+    properties:
+      created_by:
+        example: "783"
+        maxLength: 1000000000
+        minLength: 0
+        type: string
+      description:
+        example: eaque ad est et impedit.
+        maxLength: 255
+        minLength: 1
+        type: string
+      display:
+        example: false
+        type: boolean
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      name:
+        example: Obie Schroeder
+        maxLength: 255
+        minLength: 1
+        type: string
+      price:
+        example: 858
+        minimum: 0
+        type: number
+      stock_quantity:
+        example: 55
+        maximum: 1000000000
+        minimum: 0
+        type: integer
+    required:
+    - id
+    type: object
+  user_do.CreateUserReq:
+    properties:
+      email:
+        example: leannon.herminia@bxt.com
+        maxLength: 255
+        minLength: 1
+        type: string
+      full_name:
+        example: Mr. Cortez Nicolas II
+        maxLength: 255
+        minLength: 1
+        type: string
+      password:
+        example: 9HZdzEr.uWct
+        maxLength: 255
+        minLength: 1
+        type: string
+      username:
+        example: carroll.myrtle
+        maxLength: 255
+        minLength: 1
+        type: string
+    type: object
+  user_do.Token:
+    properties:
+      accessToken:
+        example: AccessToken
+        type: string
+      refreshToken:
+        example: RefreshToken
+        type: string
+    type: object
+  user_do.UpdateUserReq:
+    properties:
+      email:
+        example: leannon.herminia@bxt.com
+        maxLength: 255
+        minLength: 1
+        type: string
+      full_name:
+        example: Mr. Cortez Nicolas II
+        maxLength: 255
+        minLength: 1
+        type: string
+      id:
+        type: string
+      password_hash:
+        example: 9HZdzEr.uWct
+        maxLength: 255
+        minLength: 1
+        type: string
+      username:
+        example: carroll.myrtle
+        maxLength: 255
+        minLength: 1
+        type: string
+    type: object
+  user_do.UserResponse:
+    properties:
+      created_time:
+        example: 1005708562
+        type: integer
+      email:
+        example: leannon.herminia@bxt.com
+        type: string
+      full_name:
+        example: Mr. Cortez Nicolas II
+        type: string
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      provider:
+        allOf:
+        - $ref: '#/definitions/constant.ProviderUser'
+        example: internal
+      role:
+        example: pjOh1Jty
+        type: string
+      token:
+        $ref: '#/definitions/user_do.Token'
+      updated_time:
+        example: 1005708562
+        type: integer
+      username:
+        example: carroll.myrtle
+        type: string
+    type: object
+  v_api.Paging:
+    properties:
+      current_offset:
+        description: for load more
+        type: integer
+      current_page:
+        description: for page
+        type: integer
+      limit:
+        description: for load more
+        type: integer
+      next_offset:
+        description: for load more
+        type: integer
+      next_page:
+        description: for page
+        type: integer
+      page_size:
+        description: for page
+        type: integer
+      prev_page:
+        description: for page
+        type: integer
+      total:
+        description: total items
+        type: integer
+      total_pages:
+        description: for page
+        type: integer
+    type: object
+  v_api.Response-array_cate_do_CateResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/cate_do.CateResponse'
+        type: array
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-array_product_do_ProductResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/product_do.ProductResponse'
+        type: array
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-array_user_do_UserResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/user_do.UserResponse'
+        type: array
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-cate_do_CateResponse:
+    properties:
+      data:
+        $ref: '#/definitions/cate_do.CateResponse'
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-product_do_ProductResponse:
+    properties:
+      data:
+        $ref: '#/definitions/product_do.ProductResponse'
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-string:
+    properties:
+      data:
+        type: string
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-user_do_UserResponse:
+    properties:
+      data:
+        $ref: '#/definitions/user_do.UserResponse'
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_proto.VolioRpcError:
+    properties:
+      code:
+        type: integer
+      details:
+        items:
+          $ref: '#/definitions/v_proto.VolioRpcErrorDetail'
+        type: array
+      error_code:
+        type: integer
+      message:
+        type: string
+      wait_for:
+        type: integer
+    type: object
+  v_proto.VolioRpcErrorDetail:
+    properties:
+      field:
+        type: string
+      msg:
+        type: string
+      type:
+        type: string
+    type: object
+info:
+  contact:
+    email: admin@volio.vn
+    name: admin
+  description: Tài liệu kết nối Test API
+  license:
+    name: GNU 3.0
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  termsOfService: empty
+  title: Test API
+  version: "3.0"
+paths:
+  /admin/cates:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing Cate
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Cate ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Delete Cate
+      tags:
+      - Cate
+    post:
+      consumes:
+      - application/json
+      description: Create a new Cate
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Create Cate request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/cate_do.CreateCateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-cate_do_CateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Create Cate
+      tags:
+      - Cate
+    put:
+      consumes:
+      - application/json
+      description: Update an existing Cate
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Update Cate request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/cate_do.UpdateCateReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-cate_do_CateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Update Cate
+      tags:
+      - Cate
+  /admin/cates/detail:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Cate with optional filters
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the Cate
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-cate_do_CateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Cate
+      tags:
+      - Cate
+  /admin/cates/pagination:
+    get:
+      consumes:
+      - application/json
+      description: Get pagination of Cate
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-array_cate_do_CateResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Pagination
+      tags:
+      - Cate
+  /admin/products:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing Product
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Product ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Delete Product
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Create a new Product
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Create Product request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product_do.CreateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-product_do_ProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Create Product
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Update an existing Product
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Update Product request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/product_do.UpdateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-product_do_ProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Update Product
+      tags:
+      - Product
+  /admin/products/detail:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Product with optional filters
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the Product
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-product_do_ProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Product
+      tags:
+      - Product
+  /admin/products/pagination:
+    get:
+      consumes:
+      - application/json
+      description: Get pagination of Product
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-array_product_do_ProductResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Pagination
+      tags:
+      - Product
+  /admin/users:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing User
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Delete User
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update an existing User
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Update User request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user_do.UpdateUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-user_do_UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Update User
+      tags:
+      - User
+  /admin/users/detail:
+    get:
+      consumes:
+      - application/json
+      description: Get list of User with optional filters
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the User
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-user_do_UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get User
+      tags:
+      - User
+  /admin/users/pagination:
+    get:
+      consumes:
+      - application/json
+      description: Get pagination of User
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-array_user_do_UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Pagination
+      tags:
+      - User
+  /admin/users/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Sign in
+      parameters:
+      - description: ' Sign in request'
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user_do.CreateUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-user_do_UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Sign in User
+      tags:
+      - User
+  /admin/users/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Create a new User
+      parameters:
+      - description: Create User request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user_do.CreateUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-user_do_UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Create User
+      tags:
+      - User
+swagger: "2.0"
