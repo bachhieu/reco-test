@@ -5,6 +5,9 @@ services:
     container_name: demo
     environment:
       - CONTAINER_ROLE=main
+    build:
+          context: .
+          dockerfile: Dockerfile.base  # nếu bạn build từ Dockerfile.base
     ports:
       - "3000:3000"
     volumes:
