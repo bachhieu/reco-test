@@ -21,8 +21,9 @@ import (
 )
 
 type productDAO struct {
-	productsDAO   *postgres_dao.ProductsDAO
-	productsCache *redis_dao.ProductsCache
+	productsDAO    *postgres_dao.ProductsDAO
+	productCateDAO *postgres_dao.ProductCatesDAO
+	productsCache  *redis_dao.ProductsCache
 }
 
 type ProductsController struct {
@@ -31,6 +32,7 @@ type ProductsController struct {
 
 func (ctrl *ProductsController) InstallController() {
 	ctrl.dao.productsDAO = dao.GetProductsDAO(dao.TEST_DB_MASTER)
+	ctrl.dao.productCateDAO = dao.GetProductCatesDAO(dao.TEST_DB_MASTER)
 	ctrl.dao.productsCache = dao.GetProductsCache(dao.TEST_CACHE)
 }
 

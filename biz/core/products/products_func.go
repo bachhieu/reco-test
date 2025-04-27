@@ -69,6 +69,16 @@ func (ctrl *ProductsController) Create(input *product_do.CreateProductReq) *v_pr
 		v_log.V(1).WithError(err).Errorf("ProductsController::Create - Error: %+v", err)
 		return v_proto.NewRpcError(int32(v_proto.VolioRpcErrorCodes_SAVE_DATA), "failed to create")
 	}
+
+	// INsert cate product
+
+	input.ID = md.ID
+	if err := ctrl.dao.productCateDAO.BatchInsert(input.ParserProductCateMD()); err != nil {
+		if e := ctrl.dao.productsDAO.Delete(md.ID); e == nil {
+			return v_proto.NewRpcError(int32(v_proto.VolioRpcErrorCodes_SAVE_DATA), "Can't create product")
+		}
+	}
+
 	return nil
 }
 

@@ -26,7 +26,7 @@ import (
 )
 
 var (
-	cates_table  = "cates"
+	cates_table  = "categories"
 	cates_fields = []string{
 		"id", "name", "description", "created_by", "created_time", "updated_time",
 	}

@@ -49,9 +49,9 @@ func init() {
 	})
 
 	sql_client.AddVersionMigrateQuery(dao.TEST_DB_MASTER, &sql_client.VersionMD{
-		Name: sql_client.MigrateCreateTableKey("cates"),
+		Name: sql_client.MigrateCreateTableKey("categories"),
 		Query: `
-		CREATE TABLE IF NOT EXISTS cates (
+		CREATE TABLE IF NOT EXISTS categories (
 			id VARCHAR(36) PRIMARY KEY,
 			name VARCHAR(255) DEFAULT '',
 			description TEXT DEFAULT '',
@@ -74,6 +74,33 @@ func init() {
 			stock_quantity INT DEFAULT 0,
 			display BOOLEAN DEFAULT TRUE,
 			created_by VARCHAR(36) NOT NULL REFERENCES users(id),
+			created_time INT DEFAULT EXTRACT(EPOCH FROM NOW()),
+			updated_time INT DEFAULT EXTRACT(EPOCH FROM NOW()),
+			deleted_time INT DEFAULT 0
+		)`,
+		CreatedTime: timeNow,
+	})
+
+	sql_client.AddVersionMigrateQuery(dao.TEST_DB_MASTER, &sql_client.VersionMD{
+		Name: sql_client.MigrateCreateTableKey("product_categories"),
+		Query: `
+		CREATE TABLE product_categories (
+			product_id VARCHAR(36) NOT NULL REFERENCES products(id),
+			category_id VARCHAR(36) NOT NULL REFERENCES cates(id),
+			PRIMARY KEY (product_id, category_id)
+		);`,
+		CreatedTime: timeNow,
+	})
+
+	sql_client.AddVersionMigrateQuery(dao.TEST_DB_MASTER, &sql_client.VersionMD{
+		Name: sql_client.MigrateCreateTableKey("reviews"),
+		Query: `
+		CREATE TABLE IF NOT EXISTS reviews (
+			id VARCHAR(36) PRIMARY KEY,
+			product_id VARCHAR(255) DEFAULT '',
+			user_id VARCHAR(255) DEFAULT '',
+			rating INT NOT NULL CHECK (rating >= 1 AND rating <= 5),
+			comment VARCHAR(255) DEFAULT '',
 			created_time INT DEFAULT EXTRACT(EPOCH FROM NOW()),
 			updated_time INT DEFAULT EXTRACT(EPOCH FROM NOW()),
 			deleted_time INT DEFAULT 0

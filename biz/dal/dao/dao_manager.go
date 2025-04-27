@@ -30,9 +30,11 @@ const (
 
 // ----------------------- PostgresSQL ------------------------
 type PostgresDAOList struct {
-	usersDAO    *postgres_dao.UsersDAO
-	catesDAO    *postgres_dao.CatesDAO
-	productsDAO *postgres_dao.ProductsDAO
+	usersDAO        *postgres_dao.UsersDAO
+	catesDAO        *postgres_dao.CatesDAO
+	productsDAO     *postgres_dao.ProductsDAO
+	productCatesDAO *postgres_dao.ProductCatesDAO
+	reviewsDAO      *postgres_dao.ReviewsDAO
 }
 type PostgresDAOManager struct {
 	daoListMap map[string]*PostgresDAOList
@@ -50,6 +52,8 @@ func InstallPostgresDAOManager(clients sync.Map) { /*map[string]*sql_client.SQLC
 		daoList.usersDAO = postgres_dao.NewUsersDAO(v.DB)
 		daoList.catesDAO = postgres_dao.NewCatesDAO(v.DB)
 		daoList.productsDAO = postgres_dao.NewProductsDAO(v.DB)
+		daoList.productCatesDAO = postgres_dao.NewProductCatesDAO(v.DB)
+		daoList.reviewsDAO = postgres_dao.NewReviewsDAO(v.DB)
 		postgresDAOManager.daoListMap[k] = daoList
 		return true
 	})
@@ -58,6 +62,20 @@ func InstallPostgresDAOManager(clients sync.Map) { /*map[string]*sql_client.SQLC
 // GetPostgresDAOListMap func
 func GetPostgresDAOListMap() map[string]*PostgresDAOList {
 	return postgresDAOManager.daoListMap
+}
+func GetReviewsDAO(dbName string) *postgres_dao.ReviewsDAO {
+	daoList, ok := postgresDAOManager.daoListMap[dbName]
+	if !ok {
+		v_log.V(1).Infof("GetReviewsDAO - Not found daoList: %s", dbName)
+	}
+	return daoList.reviewsDAO
+}
+func GetProductCatesDAO(dbName string) *postgres_dao.ProductCatesDAO {
+	daoList, ok := postgresDAOManager.daoListMap[dbName]
+	if !ok {
+		v_log.V(1).Infof("GetProductCatesDAO - Not found daoList: %s", dbName)
+	}
+	return daoList.productCatesDAO
 }
 func GetProductsDAO(dbName string) *postgres_dao.ProductsDAO {
 	daoList, ok := postgresDAOManager.daoListMap[dbName]
@@ -87,6 +105,7 @@ type RedisDAOList struct {
 	UsersCache    *redis_dao.UsersCache
 	CatesCache    *redis_dao.CatesCache
 	ProductsCache *redis_dao.ProductsCache
+	ReviewsCache  *redis_dao.ReviewsCache
 }
 
 // RedisDAOManager type
@@ -138,4 +157,11 @@ func GetProductsCache(redisName string) *redis_dao.ProductsCache {
 		v_log.V(1).Infof("GetProductsCache - Not found daoList: %s", redisName)
 	}
 	return daoList.ProductsCache
+}
+func GetReviewsCache(redisName string) *redis_dao.ReviewsCache {
+	daoList, ok := redisDAOManager.daoListMap[redisName]
+	if !ok {
+		v_log.V(1).Infof("GetReviewsCache - Not found daoList: %s", redisName)
+	}
+	return daoList.ReviewsCache
 }

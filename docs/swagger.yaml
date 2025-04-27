@@ -69,6 +69,11 @@ definitions:
     - PROVIDER_USER_FACEBOOK
   product_do.CreateProductReq:
     properties:
+      categories:
+        items:
+          type: string
+        minItems: 1
+        type: array
       description:
         example: eaque ad est et impedit.
         maxLength: 255
@@ -91,6 +96,8 @@ definitions:
         maximum: 1000000000
         minimum: 0
         type: integer
+    required:
+    - categories
     type: object
   product_do.ProductResponse:
     properties:
@@ -154,6 +161,76 @@ definitions:
         maximum: 1000000000
         minimum: 0
         type: integer
+    required:
+    - id
+    type: object
+  review_do.CreateReviewReq:
+    properties:
+      comment:
+        example: BqlFnqkM
+        maxLength: 255
+        minLength: 1
+        type: string
+      product_id:
+        example: 01JSVA6TGG5PNH8Q51351FSY12
+        maxLength: 255
+        minLength: 1
+        type: string
+      rating:
+        example: 5
+        maximum: 5
+        minimum: 1
+        type: integer
+    type: object
+  review_do.ReviewResponse:
+    properties:
+      comment:
+        example: BqlFnqkM
+        type: string
+      created_time:
+        example: 1710008982
+        type: integer
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      product_id:
+        example: gPdBjIkf
+        type: string
+      rating:
+        example: 5
+        type: integer
+      updated_time:
+        example: 1710008982
+        type: integer
+      user_id:
+        example: gPdBjIkf
+        type: string
+    type: object
+  review_do.UpdateReviewReq:
+    properties:
+      comment:
+        example: BqlFnqkM
+        maxLength: 255
+        minLength: 1
+        type: string
+      id:
+        example: 01HFGRZQHPY8JHVRZ7NSRDGVB5
+        type: string
+      product_id:
+        example: gPdBjIkf
+        maxLength: 255
+        minLength: 1
+        type: string
+      rating:
+        example: 5
+        maximum: 255
+        minimum: 1
+        type: integer
+      user_id:
+        example: gPdBjIkf
+        maxLength: 255
+        minLength: 1
+        type: string
     required:
     - id
     type: object
@@ -310,6 +387,24 @@ definitions:
       status:
         type: integer
     type: object
+  v_api.Response-array_review_do_ReviewResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/review_do.ReviewResponse'
+        type: array
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
   v_api.Response-array_user_do_UserResponse:
     properties:
       data:
@@ -348,6 +443,22 @@ definitions:
     properties:
       data:
         $ref: '#/definitions/product_do.ProductResponse'
+      data_extend: {}
+      description:
+        type: string
+      encryption:
+        type: string
+      message:
+        type: string
+      paging:
+        $ref: '#/definitions/v_api.Paging'
+      status:
+        type: integer
+    type: object
+  v_api.Response-review_do_ReviewResponse:
+    properties:
+      data:
+        $ref: '#/definitions/review_do.ReviewResponse'
       data_extend: {}
       description:
         type: string
@@ -786,6 +897,185 @@ paths:
       summary: Get Pagination
       tags:
       - Product
+  /admin/reviews:
+    delete:
+      consumes:
+      - application/json
+      description: Delete an existing Review
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Review ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-string'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Delete Review
+      tags:
+      - Review
+    post:
+      consumes:
+      - application/json
+      description: Create a new Review
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Create Review request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/review_do.CreateReviewReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-review_do_ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Create Review
+      tags:
+      - Review
+    put:
+      consumes:
+      - application/json
+      description: Update an existing Review
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Update Review request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/review_do.UpdateReviewReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-review_do_ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Update Review
+      tags:
+      - Review
+  /admin/reviews/detail:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Review with optional filters
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID of the Review
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-review_do_ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Review
+      tags:
+      - Review
+  /admin/reviews/pagination:
+    get:
+      consumes:
+      - application/json
+      description: Get pagination of Review
+      parameters:
+      - default: access_token
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v_api.Response-array_review_do_ReviewResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v_proto.VolioRpcError'
+      summary: Get Pagination
+      tags:
+      - Review
   /admin/users:
     delete:
       consumes:

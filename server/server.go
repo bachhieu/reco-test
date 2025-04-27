@@ -24,6 +24,7 @@ import (
 	"github.com/bachhieu/test/biz/dal/dao"
 	cates_handler "github.com/bachhieu/test/server/cates"
 	products_handler "github.com/bachhieu/test/server/products"
+	reviews_handler "github.com/bachhieu/test/server/reviews"
 	users_handler "github.com/bachhieu/test/server/users"
 	"github.com/gofiber/fiber/v2"
 
@@ -43,6 +44,7 @@ type TestServer struct {
 	usersHandler    *users_handler.UsersAPI
 	catesHandler    *cates_handler.CatesAPI
 	productsHandler *products_handler.ProductsAPI
+	reviewsHandler  *reviews_handler.ReviewsAPI
 }
 
 func NewTestServer() *TestServer {
@@ -71,6 +73,8 @@ func (s *TestServer) Initialize() error {
 	s.catesHandler = cates_handler.NewCatesAPI(s.controllers)
 
 	s.productsHandler = products_handler.NewProductsAPI(s.controllers)
+
+	s.reviewsHandler = reviews_handler.NewReviewsAPI(s.controllers)
 
 	// Install handler
 

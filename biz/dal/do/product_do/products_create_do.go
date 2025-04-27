@@ -27,12 +27,14 @@ import (
 // var _ validator.ICustomMessage = (*CreateProductReq)(nil)
 
 type CreateProductReq struct {
-	Name          string  `json:"name" validate:"omitempty,min=1,max=255" example:"Obie Schroeder"`
-	Description   string  `json:"description" validate:"omitempty,min=1,max=255" example:"eaque ad est et impedit."`
-	Price         float64 `json:"price" validate:"omitempty,min=0" example:"858"`
-	StockQuantity int     `json:"stock_quantity" validate:"omitempty,min=0,max=1000000000" example:"55"`
-	Display       bool    `json:"display" validate:"omitempty" example:"false"`
-	CreatedBy     string  `json:"-"`
+	ID            string   `json:"-"`
+	Name          string   `json:"name" validate:"omitempty,min=1,max=255" example:"Obie Schroeder"`
+	Description   string   `json:"description" validate:"omitempty,min=1,max=255" example:"eaque ad est et impedit."`
+	Price         float64  `json:"price" validate:"omitempty,min=0" example:"858"`
+	StockQuantity int      `json:"stock_quantity" validate:"omitempty,min=0,max=1000000000" example:"55"`
+	Display       bool     `json:"display" validate:"omitempty" example:"false"`
+	Categories    []string `json:"categories" validate:"required,min=1,dive,required"`
+	CreatedBy     string   `json:"-"`
 }
 
 func (d *CreateProductReq) Validated() (*models.ProductMD, *v_proto.VolioRpcError) {
@@ -55,5 +57,16 @@ func (d *CreateProductReq) Validated() (*models.ProductMD, *v_proto.VolioRpcErro
 		UpdatedTime:   timeNow,
 	}
 
+	d.ID = model.ID
 	return model, nil
+}
+
+func (d *CreateProductReq) ParserProductCateMD() []*models.ProductCateMD {
+	r := []*models.ProductCateMD{}
+
+	for _, cate := range d.Categories {
+		r = append(r, &models.ProductCateMD{ProductID: d.ID, CateID: cate})
+	}
+
+	return r
 }

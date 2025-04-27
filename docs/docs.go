@@ -559,6 +559,274 @@ const docTemplate = `{
                 }
             }
         },
+        "/admin/reviews": {
+            "put": {
+                "description": "Update an existing Review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Update Review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "access_token",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Review request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/review_do.UpdateReviewReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v_api.Response-review_do_ReviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new Review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Create Review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "access_token",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Create Review request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/review_do.CreateReviewReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v_api.Response-review_do_ReviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an existing Review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Delete Review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "access_token",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Review ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v_api.Response-string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reviews/detail": {
+            "get": {
+                "description": "Get list of Review with optional filters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Get Review",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "access_token",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID of the Review",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v_api.Response-review_do_ReviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/reviews/pagination": {
+            "get": {
+                "description": "Get pagination of Review",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "summary": "Get Pagination",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "access_token",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "page_size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "q",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v_api.Response-array_review_do_ReviewResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/v_proto.VolioRpcError"
+                        }
+                    }
+                }
+            }
+        },
         "/admin/users": {
             "put": {
                 "description": "Update an existing User",
@@ -960,7 +1228,17 @@ const docTemplate = `{
         },
         "product_do.CreateProductReq": {
             "type": "object",
+            "required": [
+                "categories"
+            ],
             "properties": {
+                "categories": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "description": {
                     "type": "string",
                     "maxLength": 255,
@@ -1073,6 +1351,98 @@ const docTemplate = `{
                     "maximum": 1000000000,
                     "minimum": 0,
                     "example": 55
+                }
+            }
+        },
+        "review_do.CreateReviewReq": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "example": "BqlFnqkM"
+                },
+                "product_id": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "example": "01JSVA6TGG5PNH8Q51351FSY12"
+                },
+                "rating": {
+                    "type": "integer",
+                    "maximum": 5,
+                    "minimum": 1,
+                    "example": 5
+                }
+            }
+        },
+        "review_do.ReviewResponse": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "example": "BqlFnqkM"
+                },
+                "created_time": {
+                    "type": "integer",
+                    "example": 1710008982
+                },
+                "id": {
+                    "type": "string",
+                    "example": "01HFGRZQHPY8JHVRZ7NSRDGVB5"
+                },
+                "product_id": {
+                    "type": "string",
+                    "example": "gPdBjIkf"
+                },
+                "rating": {
+                    "type": "integer",
+                    "example": 5
+                },
+                "updated_time": {
+                    "type": "integer",
+                    "example": 1710008982
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "gPdBjIkf"
+                }
+            }
+        },
+        "review_do.UpdateReviewReq": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "example": "BqlFnqkM"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "01HFGRZQHPY8JHVRZ7NSRDGVB5"
+                },
+                "product_id": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "example": "gPdBjIkf"
+                },
+                "rating": {
+                    "type": "integer",
+                    "maximum": 255,
+                    "minimum": 1,
+                    "example": 5
+                },
+                "user_id": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "example": "gPdBjIkf"
                 }
             }
         },
@@ -1289,6 +1659,33 @@ const docTemplate = `{
                 }
             }
         },
+        "v_api.Response-array_review_do_ReviewResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/review_do.ReviewResponse"
+                    }
+                },
+                "data_extend": {},
+                "description": {
+                    "type": "string"
+                },
+                "encryption": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "paging": {
+                    "$ref": "#/definitions/v_api.Paging"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
         "v_api.Response-array_user_do_UserResponse": {
             "type": "object",
             "properties": {
@@ -1345,6 +1742,30 @@ const docTemplate = `{
             "properties": {
                 "data": {
                     "$ref": "#/definitions/product_do.ProductResponse"
+                },
+                "data_extend": {},
+                "description": {
+                    "type": "string"
+                },
+                "encryption": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "paging": {
+                    "$ref": "#/definitions/v_api.Paging"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "v_api.Response-review_do_ReviewResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/review_do.ReviewResponse"
                 },
                 "data_extend": {},
                 "description": {

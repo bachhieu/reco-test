@@ -16,6 +16,7 @@ import (
 	"github.com/bachhieu/fountain/proto/v_proto"
 	"github.com/bachhieu/test/biz/dal/do/cate_do"
 	"github.com/bachhieu/test/biz/dal/do/product_do"
+	"github.com/bachhieu/test/biz/dal/do/review_do"
 	"github.com/bachhieu/test/biz/dal/models"
 )
 
@@ -44,5 +45,14 @@ type ProductsCallback interface {
 	CountTotal(params *product_do.ProductQueryParams) int
 	Create(input *product_do.CreateProductReq) *v_proto.VolioRpcError
 	Update(input *product_do.UpdateProductReq) *v_proto.VolioRpcError
+	Delete(id string) *v_proto.VolioRpcError
+}
+
+type ReviewsCallback interface {
+	Get(id string) *models.ReviewMD
+	Gets(params *review_do.ReviewQueryParams, offset, limit int) ([]*models.ReviewMD, *v_proto.VolioRpcError)
+	CountTotal(params *review_do.ReviewQueryParams) int
+	Create(input *review_do.CreateReviewReq) *v_proto.VolioRpcError
+	Update(input *review_do.UpdateReviewReq) *v_proto.VolioRpcError
 	Delete(id string) *v_proto.VolioRpcError
 }

@@ -47,6 +47,15 @@ func (s *TestServer) initRouter() {
 	/* Admin route */
 
 	{
+		reviewsGr := adminGr.Group("/reviews")
+		reviewsGr.Post("/", s.reviewsHandler.Create)
+		reviewsGr.Get("/pagination", s.reviewsHandler.GetPagination)
+		reviewsGr.Get("/detail", s.reviewsHandler.Get)
+		reviewsGr.Put("/", s.reviewsHandler.Update)
+		reviewsGr.Delete("/", s.reviewsHandler.Delete)
+	}
+
+	{
 		productsGr := adminGr.Group("/products", s.usersHandler.RequiredLogin)
 		productsGr.Post("/", s.productsHandler.Create)
 		productsGr.Get("/pagination", s.productsHandler.GetPagination)
