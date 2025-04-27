@@ -18,12 +18,12 @@ OR
    docker compose up -d
    ```
 
-2. Run with docker image: [bachviethieu/demo](https://hub.docker.com/r/bachviethieu/demo)
+2. Run with docker image: [bachviethieu/hieubv-reco](https://hub.docker.com/r/bachviethieu/hieubv-reco)
 
   ```bash
-  docker pull bachviethieu/demo
+  docker pull bachviethieu/hieubv-reco:testing
   # Create file config.json
-  docker run -p {PORT}:{PORT} -v ./config.json:/app/config.json bachviethieu/demo
+  docker run -p {PORT}:{PORT} -v ./config.json:/app/config.json bachviethieu/hieubv-reco:testing
   ```
 
 ## Testing API in local
